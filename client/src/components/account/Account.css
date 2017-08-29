@@ -1,0 +1,43 @@
+.account {
+  width: 100%;
+}
+.accounttitle {
+  text-align: center;
+  padding: 20px;
+  font-size: 2em;
+}
+
+.headerbackground {
+  background-color: #ffead0;
+  margin: 0 -15px;
+}
+
+.about-me {
+  max-width: 350px;
+}
+.menu-user-info .user-menu-avatar .user-avatar img {
+  border-radius: 50px;
+  width: 65px;
+  height: 65px;
+  margin: -2px;
+}
+.user-menu-avatar {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.username-email {
+  margin-left: 20px;
+}
+
+.username-email p {
+  margin: 0;
+}
+
+.username {
+  font-weight: 700;
+  margin-top: 10px;
+}
+.accountemail {
+  font-size: 0.75em;
+}
