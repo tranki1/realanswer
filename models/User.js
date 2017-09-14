@@ -41,49 +41,7 @@ const UserSchema = new Schema({
   avatar: {
     type: String
   },
-  profiles: {
-    conceiveprofile: [
-      {
-        title: {
-          type: String,
-          required: true
-        }
-      }
-    ],
-    pregnancyprofile: [
-      {
-        title: {
-          type: String,
-          required: true
-        },
-        expecting: {
-          type: String
-        },
-        duedate: {
-          type: Date,
-          required: true
-        }
-      }
-    ],
-    parentprofile: [
-      {
-        title: {
-          type: String,
-          required: true
-        },
-        childname: {
-          type: String
-        },
-        babysex: {
-          type: String
-        },
-        babybirthday: {
-          type: Date,
-          required: true
-        }
-      }
-    ]
-  },
+
   date: {
     type: Date,
     default: Date.now
