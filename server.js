@@ -4,7 +4,6 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 
 const users = require('./routes/api/users');
-const profile = require('./routes/api/profile');
 const questions = require('./routes/api/questions');
 
 const app = express();
@@ -31,7 +30,6 @@ require('./config/passport')(passport);
 
 // Use route
 app.use('/api/users', users);
-app.use('/api/profile', profile);
 app.use('/api/questions', questions);
 
 //for heroku port and local port

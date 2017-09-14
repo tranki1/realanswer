@@ -11,6 +11,7 @@ const passport = require('passport');
 //Load Input Validation
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
+const validateUserInput = require('../../validation/user');
 
 // Load User model
 const User = require('../../models/User');
@@ -18,7 +19,6 @@ const User = require('../../models/User');
 // @route GET api/users/test
 // @desc Tests users route
 // @access public
-
 router.get('/test', (req, res) => res.json({ msg: 'users works' }));
 
 // @route POST api/users/register
@@ -30,9 +30,8 @@ router.post('/register', (req, res) => {
   if (!isValid) {
     return res.status(400).json(errors);
   }
-
   User.findOne({ email: req.body.email }).then(user => {
-    //if user exist
+    //if user exist => error
     if (user) {
       errors.email = 'Email already exists';
       return res.status(400).json(errors);
@@ -74,12 +73,10 @@ router.post('/login', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   const { errors, isValid } = validateLoginInput(req.body);
-
   //check validation
   if (!isValid) {
     return res.status(400).json(errors);
   }
-
   //Find user by email
   User.findOne({ email }).then(user => {
     //Check for user
@@ -123,9 +120,83 @@ router.get(
       id: req.user.id,
       name: req.user.name,
       email: req.user.email,
-      username: req.user.username
+      username: req.user.username,
+      address: req.user.address,
+      phone: req.user.phone,
+      zipcode: req.user.zipcode,
+      city: req.user.city,
+      gender: req.user.gender,
+      phone: req.user.phone,
+      profiles: req.user.profiles
     });
   }
 );
+
+// @route POST api/users/current
+// @desc create or update user information
+// @access Private
+router.post(
+  '/current',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateUserInput(req.body);
+    //check validation
+    if (!isValid) {
+      //return any errors with 400 status
+      return res.status(400).json(errors);
+    }
+    //get fields
+    const email = req.user.email;
+    const userFields = {};
+    if (req.body.phone) userFields.phone = req.body.phone;
+    if (req.body.gender) userFields.gender = req.body.gender;
+    if (req.body.address) userFields.address = req.body.address;
+    if (req.body.city) userFields.city = req.body.city;
+    if (req.body.zipcode) userFields.zipcode = req.body.zipcode;
+
+    User.findOne({ email }).then(user => {
+      //if user exist
+      if (user) {
+        //Update
+        User.findOneAndUpdate(
+          { email: req.user.email },
+          { $set: userFields },
+          { new: true }
+        ).then(user => res.json(user));
+      } else {
+        //return error
+        errors.user = 'no user';
+        res.status(400).json(errors);
+      }
+    });
+  }
+);
+
+// @route GET api/users/username/:username
+// @desc Get user information by username
+// @access Public
+router.get('/username/:username', (req, res) => {
+  const errors = {};
+  User.findOne({ username: req.params.username })
+    .then(user => {
+      if (!user) {
+        errors.user = 'No user';
+        res.status(404).json(errors);
+      }
+      res.json({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        username: user.username,
+        address: user.address,
+        phone: user.phone,
+        zipcode: user.zipcode,
+        city: user.city,
+        gender: user.gender,
+        phone: user.phone
+      });
+    })
+    .catch(err => res.status(404).json(err));
+});
 
 module.exports = router;
