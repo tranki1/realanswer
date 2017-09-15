@@ -92,4 +92,31 @@ router.post(
   }
 );
 
+// @route POST api/profiles/parentProfile
+// @desc Add or update parent profile to profiles
+// @access Private
+router.post(
+  '/parentProfile',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateParentProfileInput(req.body);
+    //check validation
+    if (!isValid) {
+      //return any errors with 400 status
+      return res.status(400).json(errors);
+    }
+
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      const newParentProfile = {
+        childname: req.body.childname,
+        babysex: req.body.babysex,
+        babybirthday: req.body.babybirthday
+      };
+      //Add to exp array
+      profile.parentprofile.unshift(newParentProfile);
+      profile.save().then(profile => res.json(profile));
+    });
+  }
+);
+
 module.exports = router;
