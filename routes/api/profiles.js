@@ -54,4 +54,42 @@ router.get('/user/:user_id', (req, res) => {
     );
 });
 
+// @route POST api/profiles/
+// @desc create or update user profiles
+// @access Private
+router.post(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    //get fields
+    const profileFields = {};
+    profileFields.user = req.user.id;
+
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      if (profile) {
+        //Update
+        Profile.findOneAndUpdate(
+          { user: req.user.id },
+          { $set: profileFields },
+          { new: true }
+        ).then(profile => res.json(profile));
+      } else {
+        //Create
+
+        //Check if profile exists
+        Profile.findOne({
+          user: req.user.id
+        }).then(profile => {
+          if (profile) {
+            errors.handle = 'That handle already exists';
+            res.status(400).json(errors);
+          }
+          //Save profile
+          new Profile(profileFields).save().then(profile => res.json(profile));
+        });
+      }
+    });
+  }
+);
+
 module.exports = router;
