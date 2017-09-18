@@ -161,4 +161,70 @@ router.post(
   }
 );
 
+// @route   DELETE api/profile/parentProfile/:parentProfile_id
+// @desc    Delete parent Profile from profiles
+// @access  Private
+router.delete(
+  '/parentProfile/:parentProfile_id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id })
+      .then(profile => {
+        // Get remove index
+        const removeIndex = profile.parentprofile
+          .map(item => item.id)
+          .indexOf(req.params.parentProfile_id);
+        // Splice out of array
+        profile.parentprofile.splice(removeIndex, 1);
+        // Save
+        profile.save().then(profile => res.json(profile));
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
+
+// @route   DELETE api/profile/conceiveProfile/:conceiveProfile_id
+// @desc    Delete parent Profile from profiles
+// @access  Private
+router.delete(
+  '/conceiveProfile/:conceiveprofile_id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id })
+      .then(profile => {
+        // Get remove index
+        const removeIndex = profile.conceiveprofile
+          .map(item => item.id)
+          .indexOf(req.params.conceiveprofile_id);
+        // Splice out of array
+        profile.conceiveprofile.splice(removeIndex, 1);
+        // Save
+        profile.save().then(profile => res.json(profile));
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
+
+// @route   DELETE api/profile/pregnancyProfile/:pregnancyProfile_id
+// @desc    Delete parent Profile from profiles
+// @access  Private
+router.delete(
+  '/pregnancyProfile/:pregnancyProfile_id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id })
+      .then(profile => {
+        // Get remove index
+        const removeIndex = profile.pregnancyprofile
+          .map(item => item.id)
+          .indexOf(req.params.pregnancyProfile_id);
+        // Splice out of array
+        profile.pregnancyprofile.splice(removeIndex, 1);
+        // Save
+        profile.save().then(profile => res.json(profile));
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
+
 module.exports = router;
