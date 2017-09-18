@@ -23,7 +23,7 @@ const QuestionSchema = new Schema({
   likes: [
     {
       user: {
-        type: Schema.Types.ObjectID,
+        type: Schema.Types.ObjectId,
         ref: 'users'
       }
     }
@@ -31,7 +31,7 @@ const QuestionSchema = new Schema({
   answers: [
     {
       user: {
-        type: Schema.Types.ObjectID,
+        type: Schema.Types.ObjectId,
         ref: 'users'
       },
       text: {
