@@ -119,4 +119,46 @@ router.post(
   }
 );
 
+// @route POST api/profiles/pregnancyProfile
+// @desc Add or update pregnancy profile to profiles
+// @access Private
+router.post(
+  '/pregnancyProfile',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validatePregnancyProfileInput(req.body);
+    //check validation
+    if (!isValid) {
+      //return any errors with 400 status
+      return res.status(400).json(errors);
+    }
+
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      const newPregProfile = {
+        expecting: req.body.expecting,
+        duedate: req.body.duedate
+      };
+      //Add to exp array
+      profile.pregnancyprofile.unshift(newPregProfile);
+      profile.save().then(profile => res.json(profile));
+    });
+  }
+);
+
+// @route POST api/profiles/conceiveProfile
+// @desc Add or update pregnancy profile to profiles
+// @access Private
+router.post(
+  '/conceiveProfile',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      const newConProfile = {};
+      //Add to exp array
+      profile.conceiveprofile.unshift(newConProfile);
+      profile.save().then(profile => res.json(profile));
+    });
+  }
+);
+
 module.exports = router;
