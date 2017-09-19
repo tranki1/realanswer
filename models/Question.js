@@ -47,7 +47,15 @@ const QuestionSchema = new Schema({
       date: {
         type: Date,
         default: Date.now
-      }
+      },
+      likes: [
+        {
+          user: {
+            type: Schema.Types.ObjectId,
+            ref: 'users'
+          }
+        }
+      ]
     }
   ],
   date: {
