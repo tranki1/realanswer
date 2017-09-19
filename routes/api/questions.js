@@ -14,6 +14,34 @@ const validateQuestionInput = require('../../validation/question');
 // @access public
 router.get('/test', (req, res) => res.json({ msg: 'questions works' }));
 
+// @route GET api/questions
+// @desc Get questions
+// @access public
+router.get('/', (req, res) => {
+  Question.find()
+    .sort({ date: -1 })
+    .then(questions => {
+      res.json(questions);
+    })
+    .catch(err =>
+      res.status(404).json({ noquestionsfound: 'No questions found' })
+    );
+});
+// @route GET api/questions/:id
+// @desc Get single question by id
+// @access public
+router.get('/:id', (req, res) => {
+  Question.findById(req.params.id)
+    .then(question => {
+      res.json(question);
+    })
+    .catch(err =>
+      res
+        .status(404)
+        .json({ noquestionfound: 'No question found with that id' })
+    );
+});
+
 // @route POST api/questions/
 // @desc Create question
 // @access Private
