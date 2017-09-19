@@ -5,6 +5,8 @@ const passport = require('passport');
 
 // Load question model
 const Question = require('../../models/Question');
+// Load profile model
+const Profile = require('../../models/Profile');
 
 //Input validation
 const validateQuestionInput = require('../../validation/question');
@@ -62,6 +64,32 @@ router.post(
       user: req.user.id
     });
     newQuestion.save().then(question => res.json(question));
+  }
+);
+
+// @route DELETE api/questions/:id
+// @desc Delete question
+// @access Private
+router.delete(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id })
+      .then(profile => {
+        Question.findById(req.params.id).then(question => {
+          //Check for question owner
+          if (question.user.toString() !== req.user.id) {
+            return res
+              .status(401)
+              .json({ notauthorized: 'User not authorized' });
+          }
+          //Delete
+          question.remove().then(() => res.json({ success: true }));
+        });
+      })
+      .catch(err =>
+        res.status(404).json({ noquestionfound: 'No question found' })
+      );
   }
 );
 module.exports = router;
