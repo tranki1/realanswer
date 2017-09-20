@@ -189,7 +189,8 @@ router.post(
       );
   }
 );
-// @route DELETE api/question/answer/:id/:answer_id
+
+// @route DELETE api/questions/answer/:id/:answer_id
 // @desc Delete answer from question
 // @access Private
 router.delete(
@@ -222,4 +223,78 @@ router.delete(
       );
   }
 );
+
+// // @route POST api/questions/answer/like/:id/:answer_id
+// // @desc Like answer
+// // @access Private
+// router.post(
+//   'answer/like/:id/:answer_id',
+//   passport.authenticate('jwt', { session: false }),
+//   (req, res) => {
+//     Profile.findOne({ user: req.user.id })
+//       .then(profile => {
+//         Question.findById(req.params.id).then(question => {
+//           //check if answer exist
+//           if (
+//             question.answers.filter(
+//               answer => answer._id.toString() === req.params.answer_id
+//             ).length > 0
+//           ) {
+//             //Check if user liked the answer or not
+//             if (
+//               question.answers[likes].filter(
+//                 like => like.user.toString() === req.user.id
+//               ).length > 0
+//             ) {
+//               return res
+//                 .status(404)
+//                 .json({ alreadyliked: 'User already liked this question' });
+//             }
+//             //Add user id to likes array
+//             question.answers[likes].unshift({ user: req.user.id });
+//             //Save to db
+//             question.save().then(question => res.json(question));
+//           }
+//         });
+//       })
+//       .catch(err =>
+//         res.status(404).json({ noquestionfound: 'No question found' })
+//       );
+//   }
+// );
+
+// // @route POST api/questions/unlike/:id
+// // @desc Like question
+// // @access Private
+// router.post(
+//   '/unlike/:id',
+//   passport.authenticate('jwt', { session: false }),
+//   (req, res) => {
+//     Profile.findOne({ user: req.user.id })
+//       .then(profile => {
+//         Question.findById(req.params.id).then(question => {
+//           //Check if user liked the question or not
+//           if (
+//             question.likes.filter(like => like.user.toString() === req.user.id)
+//               .length === 0
+//           ) {
+//             return res
+//               .status(404)
+//               .json({ alreadyliked: 'You have not liked this question' });
+//           }
+//           //Get the remove index
+//           const removeIndex = question.likes
+//             .map(item => item.user.toString())
+//             .indexOf(req.user.id);
+//           //Splice out of array
+//           question.likes.splice(removeIndex, 1);
+//           //Save to db
+//           question.save().then(question => res.json(question));
+//         });
+//       })
+//       .catch(err =>
+//         res.status(404).json({ noquestionfound: 'No question found' })
+//       );
+//   }
+// );
 module.exports = router;
