@@ -157,4 +157,69 @@ router.post(
       );
   }
 );
+
+// @route POST api/questions/answer/:id
+// @desc Add question's answer
+// @access Private
+router.post(
+  '/answer/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Question.findById(req.params.id)
+      .then(question => {
+        const { errors, isValid } = validateQuestionInput(req.body);
+        //check validation
+        if (!isValid) {
+          //if any errors send 400 errors object
+          return res.status(400).json(errors);
+        }
+        const newAns = {
+          text: req.body.text,
+          user: req.user.id,
+          username: req.user.username,
+          avatar: req.user.avatar
+        };
+        //Add user id to answer array
+        question.answers.unshift(newAns);
+        //Save to db
+        question.save().then(question => res.json(question));
+      })
+      .catch(err =>
+        res.status(404).json({ noquestionfound: 'No question found' })
+      );
+  }
+);
+// @route DELETE api/question/answer/:id/:answer_id
+// @desc Delete answer from question
+// @access Private
+router.delete(
+  '/answer/:id/:answer_id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Question.findById(req.params.id)
+      .then(question => {
+        //Check if answer exist
+        if (
+          question.answers.filter(
+            answer => answer._id.toString() === req.params.answer_id
+          ).length === 0
+        ) {
+          return res
+            .status(404)
+            .json({ answernotexists: 'The answer does not exist' });
+        }
+        //Get the remove index
+        const removeIndex = question.answers
+          .map(item => item._id.toString())
+          .indexOf(req.params.answer_id);
+        //Splice out of array
+        question.answers.splice(removeIndex, 1);
+        //Save to db
+        question.save().then(question => res.json(question));
+      })
+      .catch(err =>
+        res.status(404).json({ noquestionfound: 'No question found' })
+      );
+  }
+);
 module.exports = router;
