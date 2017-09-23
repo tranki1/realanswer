@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './SideNavbar.css';
+
 const SideNavbar = () => (
   <div id="user-column">
     <div className="menu-user-info">

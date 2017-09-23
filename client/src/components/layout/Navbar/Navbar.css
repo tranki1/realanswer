@@ -1,0 +1,45 @@
+.small-logo-text {
+  font-size: 1em;
+  font-weight: 300;
+}
+.logo-text {
+  font-weight: 800;
+  font-size: 1.75em;
+  color: #a97d85;
+}
+.slider {
+  background: #333;
+  height: 400px;
+  width: 100%;
+}
+
+.navbar-toggler {
+  margin-top: 15px;
+  border: none !important;
+}
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#F95E4D' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
+}
+
+@media screen and (min-width: 992px) {
+  .navbar {
+    height: 130px;
+  }
+  #logo {
+    width: 260px;
+    height: 120px;
+    position: relative;
+    bottom: -20px;
+  }
+  .navbar-light .navbar-nav .nav-link {
+    padding-right: 75px;
+  }
+  #nav-left {
+    padding-left: 30px;
+  }
+}
+@media screen and (min-width: 576px) {
+  #mobile-nav {
+    display: none !important;
+  }
+}
