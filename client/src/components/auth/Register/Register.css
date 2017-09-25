@@ -1,0 +1,8 @@
+.register {
+  width: 100%;
+  background: url(https://www.homeremedyhacks.com/wp-content/uploads/2018/04/pregnancy-home-remedies.jpg);
+}
+
+.register > .container {
+  max-width: 350px;
+}
