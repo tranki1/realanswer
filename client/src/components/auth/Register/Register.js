@@ -117,7 +117,22 @@ class Register extends Component {
                   />
                   {errors.password2 && <div className="invalid-feedback">{errors.password2}</div>}
                 </div>
-                <input type="submit" className="btn btn-info btn-block mt-4" />
+                <div className="form-group">
+                  <div className="row">
+                    <input
+                      type="submit"
+                      className="btn btn-custom btn-info my-2 py-2 px-4 mx-auto "
+                      value="SIGN UP"
+                    />
+                  </div>
+                </div>
+                <div className="row text-center mx-4">
+                  <small>
+                    By signing up, I agree to theMAMAclub’s
+                    <Link to="/policy">Privacy Policy and Terms of Use</Link> and
+                    <Link to="/terms"> Terms of Use.</Link>
+                  </small>
+                </div>
               </form>
               <div className="join-fallback mt-3 mb-4">
                 <h3 className="display-6 text-center">ALREADY A MEMBER?</h3>
