@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import axios from 'axios';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import registerUser from '../../../actions/authActions';
+import { registerUser } from '../../../actions/authActions';
 
 import './Register.css';
 
