@@ -11,6 +11,15 @@ body {
   box-sizing: inherit;
 }
 
+a {
+  color: grey;
+}
+a:hover {
+  color: black;
+  transform: scale(1.1);
+  transition: all 0.2s;
+  text-decoration: none;
+}
 .App {
   display: flex;
   flex-direction: column;
@@ -28,4 +37,3 @@ body {
 .landing {
   position: relative;
 }
-
