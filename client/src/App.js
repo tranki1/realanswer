@@ -5,7 +5,7 @@ import jwt_decode from 'jwt-decode';
 /* eslint-enable */
 import { Provider } from 'react-redux';
 import setAuthtoken from './utils/setAuthToken';
-import { setCurrentUser } from './actions/authActions';
+import { setCurrentUser, logoutUser } from './actions/authActions';
 
 import store from './store';
 import './App.css';
@@ -25,7 +25,18 @@ if (localStorage.jwtToken) {
   const decoded = jwt_decode(localStorage.jwtToken);
   // Set user and is Authenticated
   store.dispatch(setCurrentUser(decoded));
+
+  const currentTime = Date.now() / 1000;
+  if (decoded.exp < currentTime) {
+    // Logout user
+    store.dispatch(logoutUser());
+    // TODO: Clear current profile
+    // Redirect to login
+    window.location.href = '/login';
+  }
 }
+
+// Check for exp token
 
 const App = () => (
   <Provider store={store}>
