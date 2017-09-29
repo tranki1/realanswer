@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { registerUser } from '../../../actions/authActions';
+import TextFieldGroup from '../../../common/TextFieldGroup';
 
 import './Register.css';
 
@@ -59,76 +59,48 @@ class Register extends Component {
               <h1 className="display-4 text-center">JOIN US</h1>
               <p className="lead text-center">To get expert consulting for pregnancy & parenting</p>
               <form noValidate onSubmit={this.onSubmitHandler} action="create-profile.html">
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className={classnames('form-control', {
-                      'is-invalid': errors.name,
-                    })}
-                    placeholder="Name"
-                    name="name"
-                    value={name}
-                    required
-                    onChange={this.onchangeHandler}
-                  />
-                  {errors.name && <div className="invalid-feedback">{errors.name}</div>}
-                </div>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className={classnames('form-control', {
-                      'is-invalid': errors.username,
-                    })}
-                    placeholder="Community username"
-                    name="username"
-                    value={username}
-                    required
-                    onChange={this.onchangeHandler}
-                  />
-                  {errors.username && <div className="invalid-feedback">{errors.username}</div>}
-                </div>
-                <div className="form-group">
-                  <input
-                    type="email"
-                    className={classnames('form-control ', {
-                      'is-invalid': errors.email,
-                    })}
-                    placeholder="Email Address"
-                    name="email"
-                    value={email}
-                    onChange={this.onchangeHandler}
-                  />
-                  {errors.email && <div className="invalid-feedback">{errors.email}</div>}
-                  <small className="form-text text-muted">
-                    This site uses Gravatar so if you want a profile image, use a Gravatar email
-                  </small>
-                </div>
-                <div className="form-group">
-                  <input
-                    type="password"
-                    className={classnames('form-control ', {
-                      'is-invalid': errors.password,
-                    })}
-                    placeholder="Password"
-                    name="password"
-                    value={password}
-                    onChange={this.onchangeHandler}
-                  />
-                  {errors.password && <div className="invalid-feedback">{errors.password}</div>}
-                </div>
-                <div className="form-group">
-                  <input
-                    type="password"
-                    className={classnames('form-control ', {
-                      'is-invalid': errors.password2,
-                    })}
-                    placeholder="Confirm Password"
-                    name="password2"
-                    value={password2}
-                    onChange={this.onchangeHandler}
-                  />
-                  {errors.password2 && <div className="invalid-feedback">{errors.password2}</div>}
-                </div>
+                <TextFieldGroup
+                  type="text"
+                  placeholder="Name"
+                  name="name"
+                  value={name}
+                  onChange={this.onchangeHandler}
+                  error={errors.name}
+                />
+                <TextFieldGroup
+                  type="text"
+                  placeholder="Community username"
+                  name="name"
+                  value={username}
+                  onChange={this.onchangeHandler}
+                  error={errors.username}
+                />
+                <TextFieldGroup
+                  type="email"
+                  placeholder="Email Address"
+                  name="email"
+                  value={email}
+                  onChange={this.onchangeHandler}
+                  error={errors.email}
+                  info="This site uses Gravatar so if you want a profile image, use
+                  a Gravatar email"
+                />
+                <TextFieldGroup
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  value={password}
+                  onChange={this.onchangeHandler}
+                  error={errors.password}
+                />
+                <TextFieldGroup
+                  type="password"
+                  placeholder="Confirm password"
+                  name="password2"
+                  value={password2}
+                  onChange={this.onchangeHandler}
+                  error={errors.password2}
+                />
                 <div className="form-group">
                   <div className="row">
                     <input

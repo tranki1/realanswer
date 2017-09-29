@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../../../actions/authActions';
+import TextFieldGroup from '../../../common/TextFieldGroup';
+
 import './Login.css';
 
 class Login extends Component {
@@ -53,32 +54,22 @@ class Login extends Component {
               <h1 className="display-4 text-center">Log In</h1>
               <p className="lead text-center">Sign in to the Mama club</p>
               <form noValidate onSubmit={this.onSubmitHandler} action="dashboard.html">
-                <div className="form-group">
-                  <input
-                    type="email"
-                    className={classnames('form-control', {
-                      'is-invalid': errors.email,
-                    })}
-                    placeholder="Email Address"
-                    name="email"
-                    value={email}
-                    onChange={this.onchangeHandler}
-                  />
-                  {errors.email && <div className="invalid-feedback">{errors.email}</div>}
-                </div>
-                <div className="form-group">
-                  <input
-                    type="password"
-                    className={classnames('form-control', {
-                      'is-invalid': errors.password,
-                    })}
-                    placeholder="Password"
-                    name="password"
-                    value={password}
-                    onChange={this.onchangeHandler}
-                  />
-                  {errors.password && <div className="invalid-feedback">{errors.password}</div>}
-                </div>
+                <TextFieldGroup
+                  type="email"
+                  placeholder="Email Address"
+                  name="email"
+                  value={email}
+                  onChange={this.onchangeHandler}
+                  error={errors.email}
+                />
+                <TextFieldGroup
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  value={password}
+                  onChange={this.onchangeHandler}
+                  error={errors.password}
+                />
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
 
