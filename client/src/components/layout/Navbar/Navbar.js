@@ -10,12 +10,17 @@ import './Navbar.css';
 class Navbar extends Component {
   onLogoutClick = (e) => {
     e.preventDefault();
+    /*eslint-disable*/
     this.props.clearCurrentProfile();
     this.props.logoutUser();
+    /* eslint-enable */
   };
 
   render() {
+    /*eslint-disable*/
     const { isAuthenticated, user } = this.props.auth;
+    /* eslint-enable */
+
     const authLink = (
       <ul className="nav navbar-nav ml-auto">
         <li className="nav-item">
@@ -114,11 +119,13 @@ class Navbar extends Component {
     );
   }
 }
+/*eslint-disable*/
 Navbar.propTypes = {
   auth: PropTypes.object.isRequired,
   logoutUser: PropTypes.func.isRequired,
   clearCurrentProfile: PropTypes.func.isRequired,
 };
+/* eslint-enable */
 const mapStateProps = state => ({
   auth: state.auth,
 });

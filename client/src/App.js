@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 /* eslint-disable */
 import jwt_decode from 'jwt-decode';
 /* eslint-enable */
@@ -9,6 +9,9 @@ import { setCurrentUser, logoutUser } from './actions/authActions';
 import { clearCurrentProfile } from './actions/profileActions';
 
 import store from './store';
+
+import PrivateRoute from './components/common/PrivateRoute';
+
 import './App.css';
 
 import Navbar from './components/layout/Navbar/Navbar';
@@ -53,7 +56,9 @@ const App = () => (
 
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/account" component={Account} />
+            <Switch>
+              <PrivateRoute exact path="/account" component={Account} />
+            </Switch>
           </div>
           <Footer />
         </div>
