@@ -2,7 +2,7 @@ import axios from 'axios';
 /*eslint-disable */
 import jwt_decode from 'jwt-decode';
 /* eslint-enable */
-import { GET_ERRORS, SET_CURRENT_USER } from './types';
+import { GET_ERRORS, GET_USER, SET_CURRENT_USER } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
 // Register User
@@ -10,6 +10,23 @@ export const registerUser = (userData, history) => (dispatch) => {
   axios
     .post('api/users/register', userData)
     .then(res => history.push('/login'))
+    .catch(err => dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data,
+    }));
+};
+// update user
+
+export const updateUser = (userData, history) => (dispatch) => {
+  axios
+    .post('api/users/current', userData)
+    .then((res) => {
+      dispatch({
+        type: GET_USER,
+        payload: userData,
+      });
+      history.push('/account');
+    })
     .catch(err => dispatch({
       type: GET_ERRORS,
       payload: err.response.data,

@@ -51,7 +51,12 @@ router.post('/register', (req, res) => {
         email: req.body.email,
         avatar,
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        phone: '',
+        address: '',
+        city: '',
+        zipcode: '',
+        gender: ''
       });
       //hash the password
       bcrypt.genSalt(10, (err, salt) => {
@@ -95,7 +100,12 @@ router.post('/login', (req, res) => {
           name: user.name,
           avatar: user.avatar,
           username: user.username,
-          email: user.email
+          email: user.email,
+          phone: user.phone,
+          address: user.address,
+          city: user.city,
+          zipcode: user.zipcode,
+          gender: user.gender
         }; //Create JWT payload
         //Sign token
         jwt.sign(
@@ -128,6 +138,7 @@ router.get(
       id: req.user.id,
       name: req.user.name,
       email: req.user.email,
+      avatar: user.avatar,
       username: req.user.username,
       address: req.user.address,
       phone: req.user.phone,
@@ -141,7 +152,7 @@ router.get(
 );
 
 // @route POST api/users/current
-// @desc create or update user information
+// @desc  update user information
 // @access Private
 router.post(
   '/current',
@@ -156,6 +167,8 @@ router.post(
     //get fields
     const email = req.user.email;
     const userFields = {};
+    if (req.body.username) userFields.username = req.body.username;
+    if (req.body.email) userFields.email = req.body.email;
     if (req.body.phone) userFields.phone = req.body.phone;
     if (req.body.gender) userFields.gender = req.body.gender;
     if (req.body.address) userFields.address = req.body.address;
@@ -195,6 +208,7 @@ router.get('/username/:username', (req, res) => {
         id: user.id,
         name: user.name,
         email: user.email,
+        avatar: user.avatar,
         username: user.username,
         address: user.address,
         phone: user.phone,

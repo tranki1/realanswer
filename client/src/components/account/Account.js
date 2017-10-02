@@ -1,28 +1,97 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrentProfile } from '../../actions/profileActions';
-import Spinner from '../../common/Spinner/Spinner';
-import TextFieldGroup from '../../common/TextFieldGroup';
+
+import { updateUser } from '../../actions/authActions';
+import Spinner from '../common/Spinner/Spinner';
+import TextFieldGroup from '../common/TextFieldGroup';
+import InputGroup from '../common/InputGroup';
+import isEmpty from '../../validation/is-empty';
 
 import './Account.css';
 
 class Account extends Component {
   state = {
+    name: '',
+    username: '',
+    email: '',
+    phone: '',
+    address: '',
+    city: '',
+    gender: '',
+    zipcode: '',
+    avatar: '',
     errors: {},
   };
 
   componentDidMount() {
-    this.props.getCurrentProfile();
+    console.log(this.props.auth);
+
+    const user = this.props.auth.user;
+
+    // Check if user doesn't exist, then make empty string
+    user.address = !isEmpty(user.address) ? user.address : '';
+    user.zipcode = !isEmpty(user.zipcode) ? user.zipcode : '';
+    user.city = !isEmpty(user.city) ? user.city : '';
+    user.phone = !isEmpty(user.phone) ? user.phone : '';
+    user.gender = !isEmpty(user.gender) ? user.gender : '';
+
+    // set component fields state
+    this.setState({
+      address: user.address,
+      zipcode: user.zipcode,
+      city: user.city,
+      gender: user.gender,
+      phone: user.phone,
+      email: user.email,
+      username: user.username,
+      name: user.name,
+    });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
+
+  onSubmitHandler = (e) => {
+    e.preventDefault();
+    const UserData = {
+      address: this.state.address,
+      zipcode: this.state.zipcode,
+      city: this.state.city,
+      gender: this.state.gender,
+      phone: this.state.phone,
+      email: this.state.email,
+      username: this.state.username,
+      name: this.state.name,
+    };
+    console.log(UserData);
+    console.log(this.props.history);
+    this.props.updateUser(UserData, this.props.history);
+  };
+
+  onChangeHandler = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+    console.log(e.target.name);
+  };
+
   render() {
-    const { user } = this.props.auth;
     const {
-      email, name, username, password, password2, phone,
-    } = this.props.auth.user;
-    const { errors } = this.state;
+      email,
+      name,
+      username,
+      phone,
+      address,
+      city,
+      zipcode,
+      gender,
+      avatar,
+      errors,
+    } = this.state;
+
     const { profile, loading } = this.props.profile;
 
     let profileContent;
@@ -51,12 +120,12 @@ class Account extends Component {
               <div className="menu-user-info">
                 <div className="user-menu-avatar headerbackground pb-3">
                   <div className="user-avatar">
-                    <img className="rounded-circle" src={user.avatar} alt={user.name} />
+                    <img className="rounded-circle" src={this.props.auth.user.avatar} alt={name} />
                   </div>
 
                   <div className="username-email">
-                    <p className="username">{user.username}</p>
-                    <p className="accountemail">{user.email}</p>
+                    <p className="username">{username}</p>
+                    <p className="accountemail">{email}</p>
                   </div>
                 </div>
                 <div className="my-5 mx-auto about-me">
@@ -66,15 +135,15 @@ class Account extends Component {
                       placeholder="Name"
                       name="name"
                       value={name}
-                      onChange={this.onchangeHandler}
+                      onChange={this.onChangeHandler}
                       error={errors.name}
                     />
                     <TextFieldGroup
                       type="text"
                       placeholder="Community username"
-                      name="name"
+                      name="username"
                       value={username}
-                      onChange={this.onchangeHandler}
+                      onChange={this.onChangeHandler}
                       error={errors.username}
                     />
                     <TextFieldGroup
@@ -82,7 +151,7 @@ class Account extends Component {
                       placeholder="Email Address"
                       name="email"
                       value={email}
-                      onChange={this.onchangeHandler}
+                      onChange={this.onChangeHandler}
                       error={errors.email}
                       info="This site uses Gravatar so if you want a profile image, use
                   a Gravatar email"
@@ -92,33 +161,41 @@ class Account extends Component {
                       placeholder="Phone number"
                       name="phone"
                       value={phone}
-                      onChange={this.onchangeHandler}
+                      onChange={this.onChangeHandler}
                       error={errors.phone}
                     />
                     <TextFieldGroup
-                      type="password"
-                      placeholder="Password"
-                      name="password"
-                      value={password}
-                      onChange={this.onchangeHandler}
-                      error={errors.password}
+                      type="address"
+                      placeholder="Address"
+                      name="address"
+                      value={address}
+                      onChange={this.onChangeHandler}
+                      error={errors.address}
                     />
                     <TextFieldGroup
-                      type="password"
-                      placeholder="Confirm password"
-                      name="password2"
-                      value={password2}
-                      onChange={this.onchangeHandler}
-                      error={errors.password2}
+                      type="city"
+                      placeholder="City"
+                      name="city"
+                      value={city}
+                      onChange={this.onChangeHandler}
+                      error={errors.city}
                     />
 
                     <TextFieldGroup
-                      type="password"
-                      placeholder="Confirm password"
-                      name="password2"
-                      value={password2}
-                      onChange={this.onchangeHandler}
-                      error={errors.password2}
+                      type="zipcode"
+                      placeholder="Zipcode"
+                      name="zipcode"
+                      value={zipcode}
+                      onChange={this.onChangeHandler}
+                      error={errors.zipcode}
+                    />
+                    <TextFieldGroup
+                      type="gender"
+                      placeholder="Gender"
+                      name="gender"
+                      value={gender}
+                      onChange={this.onChangeHandler}
+                      error={errors.gender}
                     />
                     <div className="form-group">
                       <div className="row">
@@ -147,15 +224,16 @@ class Account extends Component {
   }
 }
 Account.propTypes = {
+  errors: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired,
+  updateUser: PropTypes.func.isRequired,
 };
 const mapStateToProps = state => ({
   profile: state.profile,
+  errors: state.errors,
   auth: state.auth,
 });
 export default connect(
   mapStateToProps,
-  { getCurrentProfile },
-)(Account);
+  { updateUser },
+)(withRouter(Account));

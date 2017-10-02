@@ -21,6 +21,7 @@ import Landing from './components/layout/Landing/Landing';
 import Login from './components/auth/Login/Login';
 import Register from './components/auth/Register/Register';
 import Account from './components/account/Account';
+import AddProfile from "./components/AddProfile/AddProfile";
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -58,6 +59,11 @@ const App = () => (
             <Route exact path="/login" component={Login} />
             <Switch>
               <PrivateRoute exact path="/account" component={Account} />
+              <PrivateRoute
+                exact
+                path="/add-profile"
+                component={AddProfile}
+              />
             </Switch>
           </div>
           <Footer />

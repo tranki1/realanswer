@@ -2,7 +2,6 @@ import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE } from '../actions/
 
 const innitialState = {
   profile: null,
-  profiles: null,
   loading: false,
 };
 export default function (state = innitialState, action) {

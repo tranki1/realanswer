@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { registerUser } from '../../../actions/authActions';
-import TextFieldGroup from '../../../common/TextFieldGroup';
+import TextFieldGroup from '../../common/TextFieldGroup';
 
 import './Register.css';
 
@@ -70,7 +70,7 @@ class Register extends Component {
                 <TextFieldGroup
                   type="text"
                   placeholder="Community username"
-                  name="name"
+                  name="username"
                   value={username}
                   onChange={this.onchangeHandler}
                   error={errors.username}
