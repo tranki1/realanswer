@@ -3,7 +3,7 @@ import { ADD_QUESTION, GET_ERRORS } from './types';
 
 export const addQuestion = questionData => (dispatch) => {
   axios
-    .post('/api/questions')
+    .post('/api/questions', questionData)
     .then((res) => {
       dispatch({
         type: ADD_QUESTION,

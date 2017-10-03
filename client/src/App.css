@@ -30,10 +30,18 @@ a:hover {
   flex-grow: 1;
   display: flex;
 }
+.main {
+  width: 100%;
+  margin: 0;
+}
 
 .headingS {
   font-size: 3em;
 }
 .landing {
   position: relative;
+}
+
+.btn-custom {
+  border-radius: 30px;
 }

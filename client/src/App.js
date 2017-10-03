@@ -21,7 +21,8 @@ import Landing from './components/layout/Landing/Landing';
 import Login from './components/auth/Login/Login';
 import Register from './components/auth/Register/Register';
 import Account from './components/account/Account';
-import AddProfile from "./components/AddProfile/AddProfile";
+import Questions from './components/questions/Questions';
+import QuestionForm from './components/questions/QuestionForm/QuestionForm';
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -54,16 +55,13 @@ const App = () => (
           <div id="main">
             <SideNavbar />
             <Route exact path="/" component={Landing} />
-
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/feed" component={Questions} />
             <Switch>
               <PrivateRoute exact path="/account" component={Account} />
-              <PrivateRoute
-                exact
-                path="/add-profile"
-                component={AddProfile}
-              />
+              <PrivateRoute exact path="/questions/new" component={QuestionForm} />
+              {/* <PrivateRoute exact path="/add-profile" component={AddProfile} /> */}
             </Switch>
           </div>
           <Footer />

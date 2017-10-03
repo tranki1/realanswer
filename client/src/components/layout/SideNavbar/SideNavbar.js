@@ -40,6 +40,11 @@ class SideNavbar extends Component {
             <Link className="menu-link" to="/">
               HOME
             </Link>
+            {isAuthenticated ? (
+              <Link className="menu-link" to="/questions/new">
+                ASK
+              </Link>
+            ) : null}
             <Link className="menu-link" to="/topics">
               Topics
             </Link>

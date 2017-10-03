@@ -94,17 +94,17 @@ class Navbar extends Component {
           <ul className="nav navbar-nav">
             <li className="nav-item">
               <Link className="nav-link" to="/">
-                Mobile Link
+                HOME
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/">
-                Mobile Link
+              <Link className="nav-link" to="/feed">
+                FEED
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/">
-                Mobile Link
+              <Link className="nav-link" to="/questions/new">
+                ASK
               </Link>
             </li>
             <li className="nav-item">
