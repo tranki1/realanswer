@@ -11,7 +11,7 @@ import './QuestionForm.css';
 class QuestionForm extends Component {
   state = {
     text: '',
-    agesandstages: '',
+    ageandstage: '',
     errors: {},
     topics: '',
   };
@@ -33,6 +33,8 @@ class QuestionForm extends Component {
       text: this.state.text,
       name: user.name,
       avatar: user.avatar,
+      ageandstage: this.state.ageandstage,
+      topics: this.state.topics,
     };
     console.log(newQuestion);
     this.props.addQuestion(newQuestion);
@@ -98,8 +100,8 @@ class QuestionForm extends Component {
                     </div>
                   </div>
                   <SelectListGroup
-                    name="agesandstages"
-                    value={this.state.agesandstages}
+                    name="agsandstags"
+                    value={this.state.ageandstage}
                     onChange={this.onChangeHandler}
                     options={selectOptions}
                     error={errors.text}
