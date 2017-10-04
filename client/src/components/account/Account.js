@@ -68,14 +68,12 @@ class Account extends Component {
       username: this.state.username,
       name: this.state.name,
     };
-    console.log(UserData);
-    console.log(this.props.history);
+
     this.props.updateUser(UserData, this.props.history);
   };
 
   onChangeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
-    console.log(e.target.name);
   };
 
   render() {
