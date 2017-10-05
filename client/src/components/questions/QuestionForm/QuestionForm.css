@@ -23,3 +23,6 @@
   border-bottom: 1px solid chocolate;
   height: 100px;
 }
+.ask-question-section {
+  max-width: 600px;
+}

@@ -1,0 +1,15 @@
+.questions-feed .col-2 {
+  display: none !important;
+}
+.questions-feed .col-10 {
+  max-width: 100%;
+  flex: 0 0 100%;
+  -ms-flex: 0 0 100%;
+}
+.questions-feed .questions-item:last-child .card {
+  border-bottom: none;
+}
+
+.questions-feed {
+  max-width: 600px;
+}

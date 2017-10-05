@@ -21,7 +21,7 @@ import Landing from './components/layout/Landing/Landing';
 import Login from './components/auth/Login/Login';
 import Register from './components/auth/Register/Register';
 import Account from './components/account/Account';
-import Questions from './components/questions/Questions';
+import Questions from './components/questions/Questions/Questions';
 import QuestionForm from './components/questions/QuestionForm/QuestionForm';
 
 // Check for token

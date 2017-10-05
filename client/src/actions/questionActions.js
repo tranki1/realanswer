@@ -9,10 +9,11 @@ import {
   CLEAR_ERRORS,
 } from './types';
 
-export const addQuestion = questionData => (dispatch) => {
+export const addQuestion = (questionData, history) => (dispatch) => {
   axios
     .post('/api/questions', questionData)
     .then((res) => {
+      history.push('/feed');
       dispatch({
         type: ADD_QUESTION,
         payload: res.data,

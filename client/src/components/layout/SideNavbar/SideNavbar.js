@@ -45,6 +45,9 @@ class SideNavbar extends Component {
                 ASK
               </Link>
             ) : null}
+            <Link className="menu-link" to="/feed">
+              Feed
+            </Link>
             <Link className="menu-link" to="/topics">
               Topics
             </Link>

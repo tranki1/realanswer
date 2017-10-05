@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextFieldGroup from '../../common/InputGroup';
@@ -37,7 +38,7 @@ class QuestionForm extends Component {
       topics: this.state.topics,
     };
     console.log(newQuestion);
-    this.props.addQuestion(newQuestion);
+    this.props.addQuestion(newQuestion, this.props.history);
     this.setState({ text: '' });
   };
 
@@ -66,7 +67,7 @@ class QuestionForm extends Component {
         <div className="top-helper container">
           <div className="page-title headerbackground">ASK A QUESTION</div>
         </div>
-        <div className="ask-question-section">
+        <div className="ask-question-section mx-auto">
           <div className="post-form mb-3">
             <div className="guideline">
               <div>
@@ -143,4 +144,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { addQuestion },
-)(QuestionForm);
+)(withRouter(QuestionForm));
