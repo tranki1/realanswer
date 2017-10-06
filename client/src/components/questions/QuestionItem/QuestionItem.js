@@ -29,7 +29,7 @@ class QuestionItem extends Component {
   };
 
   render() {
-    const { question, auth } = this.props;
+    const { question, auth, showActions } = this.props;
     return (
       <div className="questions-item">
         <div className="card card-body mb-3">
@@ -59,24 +59,28 @@ class QuestionItem extends Component {
               </button>
               <button
                 type="button"
-                onClick={this.onUnlikeHandler.bind(this, question._id)} /* eslint-disable-line */
+                onClick={this.onUnlikeHandler.bind(this, question._id /* eslint-disable-line */)}
                 className="btn btn-light mr-1"
               >
                 <i className="text-secondary fas fa-thumbs-down" />
               </button>
-              {/* eslint-disable-next-line */}
-              <Link to={`/question/${question._id}`} className="btn mr-1">
-                {question.answers.length} MOM ANSWERS
-              </Link>
-              {question.user === auth.user.id ? (
-                /*eslint-disable*/
-                <button
-                  type="button"
-                  onClick={() => this.onDeleteHandler(question._id)}
-                  className="btn  mr-1"
-                >
-                  <i className="fas fa-times" />
-                </button>
+              {showActions ? (
+                <span>
+                  {/* eslint-disable-next-line */}
+                  <Link to={`/question/${question._id}`} className="btn mr-1">
+                    {question.answers.length} MOM ANSWERS
+                  </Link>
+                  {question.user === auth.user.id ? (
+                    /*eslint-disable*/
+                    <button
+                      type="button"
+                      onClick={() => this.onDeleteHandler(question._id)}
+                      className="btn  mr-1"
+                    >
+                      <i className="fas fa-times" />
+                    </button>
+                  ) : null}
+                </span>
               ) : /* eslint-enable */
                 null}
             </div>
@@ -86,6 +90,9 @@ class QuestionItem extends Component {
     );
   }
 }
+QuestionItem.defaultProps = {
+  showActions: true,
+};
 
 /*eslint-disable*/
 QuestionItem.propTypes = {
@@ -94,6 +101,7 @@ QuestionItem.propTypes = {
   addLike: PropTypes.func.isRequired,
   removeLike: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
+  showActions: PropTypes.bool,
 };
 /* eslint-enable */
 const mapStateToProps = state => ({

@@ -23,6 +23,7 @@ import Register from './components/auth/Register/Register';
 import Account from './components/account/Account';
 import Questions from './components/questions/Questions/Questions';
 import QuestionForm from './components/questions/QuestionForm/QuestionForm';
+import Question from './components/questions/Question/Question';
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -60,8 +61,13 @@ const App = () => (
             <Route exact path="/feed" component={Questions} />
             <Switch>
               <PrivateRoute exact path="/account" component={Account} />
+            </Switch>
+            <Switch>
               <PrivateRoute exact path="/questions/new" component={QuestionForm} />
               {/* <PrivateRoute exact path="/add-profile" component={AddProfile} /> */}
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path="/question/:id" component={Question} />
             </Switch>
           </div>
           <Footer />
