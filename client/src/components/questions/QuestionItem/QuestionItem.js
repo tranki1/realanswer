@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { deleteQuestion } from '../../../actions/questionActions';
 
 import './QuestionItem.css';
 
 class QuestionItem extends Component {
   onDeleteHandler = (id) => {
-    console.log(id);
+    this.props.deleteQuestion(id); // eslint-disable-line
   };
 
   render() {
@@ -32,18 +33,21 @@ class QuestionItem extends Component {
               <button type="button" className="btn  mr-1">
                 <i className="text-secondary fas fa-thumbs-down" />
               </button>
+              {/* eslint-disable-next-line */}
               <Link to={`/question/${question._id}`} className="btn mr-1">
                 {question.answers.length} MOM ANSWERS
               </Link>
               {question.user === auth.user.id ? (
+                /*eslint-disable*/
                 <button
                   type="button"
-                  onClick={this.onDeleteHandler(question._id)}
+                  onClick={() => this.onDeleteHandler(question._id)}
                   className="btn  mr-1"
                 >
                   <i className="fas fa-times" />
                 </button>
-              ) : null}
+              ) : /* eslint-enable */
+                null}
             </div>
           </div>
         </div>
@@ -51,11 +55,18 @@ class QuestionItem extends Component {
     );
   }
 }
+
+/*eslint-disable*/
 QuestionItem.propTypes = {
+  deleteQuestion: PropTypes.func.isRequired,
   question: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
 };
+/* eslint-enable */
 const mapStateToProps = state => ({
   auth: state.auth,
 });
-export default connect(mapStateToProps)(QuestionItem);
+export default connect(
+  mapStateToProps,
+  { deleteQuestion },
+)(QuestionItem);
