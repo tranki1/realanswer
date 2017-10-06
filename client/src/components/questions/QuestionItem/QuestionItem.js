@@ -1,14 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { deleteQuestion } from '../../../actions/questionActions';
+import { deleteQuestion, addLike, removeLike } from '../../../actions/questionActions';
 
 import './QuestionItem.css';
 
 class QuestionItem extends Component {
   onDeleteHandler = (id) => {
     this.props.deleteQuestion(id); // eslint-disable-line
+  };
+
+  onLikeHandler = (id) => {
+    this.props.addLike(id); // eslint-disable-line
+  };
+
+  onUnlikeHandler = (id) => {
+    this.props.removeLike(id); // eslint-disable-line
+  };
+
+  findUserLike = (likes) => {
+    const { auth } = this.props;
+    if (likes.filter(like => like.user === auth.user.id).length > 0) {
+      return true;
+    }
+    return false;
   };
 
   render() {
@@ -26,11 +43,25 @@ class QuestionItem extends Component {
             </div>
             <div className="col-10">
               <p>{question.text}</p>
-              <button type="button" className="btn  mr-1">
-                <i className="text-info fas fa-thumbs-up" />
+
+              <button
+                type="button"
+                onClick={() => this.onLikeHandler(question._id)} /* eslint-disable-line */
+                className="btn  mr-1"
+              >
+                <i
+                  className={classnames('fas fa-thumbs-up', {
+                    'text-info': this.findUserLike(question.likes),
+                  })}
+                />
+
                 <span className="badge badge-light">{question.likes.length}</span>
               </button>
-              <button type="button" className="btn  mr-1">
+              <button
+                type="button"
+                onClick={this.onUnlikeHandler.bind(this, question._id)} /* eslint-disable-line */
+                className="btn btn-light mr-1"
+              >
                 <i className="text-secondary fas fa-thumbs-down" />
               </button>
               {/* eslint-disable-next-line */}
@@ -60,6 +91,8 @@ class QuestionItem extends Component {
 QuestionItem.propTypes = {
   deleteQuestion: PropTypes.func.isRequired,
   question: PropTypes.object.isRequired,
+  addLike: PropTypes.func.isRequired,
+  removeLike: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 /* eslint-enable */
@@ -68,5 +101,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { deleteQuestion },
+  { deleteQuestion, addLike, removeLike },
 )(QuestionItem);
