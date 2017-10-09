@@ -45,3 +45,7 @@ a:hover {
 .btn-custom {
   border-radius: 30px;
 }
+
+.fluid-width-600 {
+  max-width: 600px;
+}

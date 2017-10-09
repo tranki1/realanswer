@@ -24,6 +24,7 @@ import Account from './components/account/Account';
 import Questions from './components/questions/Questions/Questions';
 import QuestionForm from './components/questions/QuestionForm/QuestionForm';
 import Question from './components/questions/Question/Question';
+import NotFound from './components/not-found/NotFound';
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -55,20 +56,22 @@ const App = () => (
           <Navbar />
           <div id="main">
             <SideNavbar />
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/feed" component={Questions} />
+
             <Switch>
-              <PrivateRoute exact path="/account" component={Account} />
-            </Switch>
-            <Switch>
+              <Route exact path="/" component={Landing} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/feed" component={Questions} />
               <PrivateRoute exact path="/questions/new" component={QuestionForm} />
+              <PrivateRoute exact path="/question/:id" component={Question} />
+              <PrivateRoute exact path="/account" component={Account} />
+              <Route exact path="/*" component={NotFound} />
+            </Switch>
+            <Switch />
+            <Switch>
               {/* <PrivateRoute exact path="/add-profile" component={AddProfile} /> */}
             </Switch>
-            <Switch>
-              <PrivateRoute exact path="/question/:id" component={Question} />
-            </Switch>
+            <Switch />
           </div>
           <Footer />
         </div>
