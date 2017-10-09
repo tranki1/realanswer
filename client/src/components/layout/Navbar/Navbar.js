@@ -75,9 +75,28 @@ class Navbar extends Component {
         <div className="collapse navbar-collapse" id="nav-left">
           <ul className="nav navbar-nav mr-auto">
             <li className="nav-item">
-              <Link className="nav-link" to="/">
-                real answer
-              </Link>
+              <ul className="share-wrapper">
+                <li>
+                  <a href="/">
+                    <i className="fa fa-facebook" aria-hidden="true" />
+                  </a>
+                </li>
+                <li>
+                  <a href="/">
+                    <i className="fa fa-twitter" aria-hidden="true" />
+                  </a>
+                </li>
+                <li>
+                  <a href="/">
+                    <i className="fa fa-linkedin" aria-hidden="true" />
+                  </a>
+                </li>
+                <li>
+                  <a href="/">
+                    <i className="fa fa-github" aria-hidden="true" />
+                  </a>
+                </li>
+              </ul>
             </li>
           </ul>
         </div>

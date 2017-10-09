@@ -116,10 +116,10 @@ export const addAnswer = (questionId, commentData) => (dispatch) => {
       });
     });
 };
-// Delete Comment
-export const deleteComment = (questionId, commentId) => (dispatch) => {
+// Delete Answer
+export const deleteAnswer = (questionId, answerId) => (dispatch) => {
   axios
-    .delete(`/api/questions/comment/${questionId}/${commentId}`)
+    .delete(`/api/questions/answer/${questionId}/${answerId}`)
     .then(res => dispatch({
       type: GET_QUESTION,
       payload: res.data,

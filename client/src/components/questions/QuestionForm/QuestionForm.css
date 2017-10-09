@@ -3,7 +3,7 @@
   font-size: 2em;
   padding: 20px;
 }
-#questions-new .guideline {
+.guideline {
   padding: 25px 0;
   text-align: center;
   font-size: 0.75em;
@@ -18,7 +18,7 @@
   border-radius: 0;
   margin-bottom: 15px;
 }
-#questions-new .custom .form-control-lg {
+.custom .form-control-lg {
   border: 0;
   border-bottom: 1px solid chocolate;
   height: 100px;

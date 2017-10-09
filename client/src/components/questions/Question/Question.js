@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { getQuestionById } from '../../../actions/questionActions';
 import Spinner from '../../common/Spinner/Spinner';
 import QuestionItem from '../QuestionItem/QuestionItem';
+import AnswerForm from '../../answer/AnswerForm';
+import AnswerFeed from '../../answer/AnswerFeed';
 
 class Question extends Component {
   componentDidMount() {
@@ -17,7 +19,13 @@ class Question extends Component {
     if (question === null || loading || Object.keys(question).length === 0) {
       questionItem = <Spinner />;
     } else {
-      questionItem = <QuestionItem question={question} showActions={false} />;
+      questionItem = (
+        <div>
+          <QuestionItem question={question} showActions={false} />
+          <AnswerForm questionId={question._id} />
+          <AnswerFeed questionId={question._id} answers={question.answers} />
+        </div>
+      );
     }
     return (
       <div className="question">

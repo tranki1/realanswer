@@ -21,16 +21,49 @@
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#F95E4D' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
 }
 
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css);
+.share-wrapper {
+  list-style: none;
+  padding-left: 0;
+}
+.share-wrapper li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.share-wrapper li a,
+.share-wrapper li a:visited {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  text-decoration: none;
+  padding-top: 10px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  top: 0;
+  border-radius: 50%;
+}
+.share-wrapper li a i,
+.share-wrapper li a:visited i {
+  color: #a87d85;
+  font-size: 1.25em;
+}
+.share-wrapper li a:hover,
+.share-wrapper li a:visited:hover {
+  -webkit-animation: bouncing-icon 1.5s linear infinite;
+  -moz-animation: bouncing-icon 1.5s linear infinite;
+  -ms-animation: bouncing-icon 1.5s linear infinite;
+  -o-animation: bouncing-icon 1.5s linear infinite;
+  animation: bouncing-icon 1.5s linear infinite;
+}
+.share-wrapper li:last-child {
+  margin-right: 0;
+}
+
 @media screen and (min-width: 992px) {
-  .navbar {
-    height: 130px;
-  }
-  #logo {
-    width: 260px;
-    height: 120px;
-    position: relative;
-    bottom: -20px;
-  }
   .navbar-light .navbar-nav .nav-link {
     padding-right: 75px;
   }
