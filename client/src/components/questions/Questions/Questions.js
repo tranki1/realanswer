@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import Spinner from '../../common/Spinner/Spinner';
 import { getQuestions } from '../../../actions/questionActions';
 import QuestionFeed from '../QuestionFeed/QuestionFeed';
@@ -23,8 +24,8 @@ class Questions extends Component {
 
     return (
       <div className="question main">
-        <div className="top-helper container">
-          <div className="page-title headerbackground">REAL ANSWERS</div>
+        <div className="top-helper ">
+          <div className="page-title headerbackground">NEWEST QUESTIONS</div>
         </div>
         <div className="questions-feed container">{questionContent}</div>
       </div>

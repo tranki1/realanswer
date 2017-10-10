@@ -113,10 +113,10 @@ class Account extends Component {
       <div className="account">
         <div className="container">
           <div className="row">
-            <div className="col-md-12">
-              <h1 className="display-4 accounttitle headerbackground">ACCOUNT</h1>
+            <div className="col-md-12 ">
+              <h1 className="display-4 accounttitle ">ACCOUNT</h1>
               <div className="menu-user-info">
-                <div className="user-menu-avatar headerbackground pb-3">
+                <div className="user-menu-avatar  pb-3">
                   <div className="user-avatar">
                     <img className="rounded-circle" src={this.props.auth.user.avatar} alt={name} />
                   </div>

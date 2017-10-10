@@ -26,13 +26,15 @@ class AnswerItem extends Component {
             </div>
             <div className="col-10">
               <p>{answer.text}</p>
-              <button
-                type="button"
-                onClick={() => this.onDeleteHandler(questionId, answer._id)}
-                className="btn  mr-1"
-              >
-                <i className="fas fa-times" />
-              </button>
+              {answer.user === auth.user.id ? (
+                <button
+                  type="button"
+                  onClick={() => this.onDeleteHandler(questionId, answer._id)}
+                  className="btn mr-1"
+                >
+                  <i className="fas fa-times" />
+                </button>
+              ) : null}
             </div>
           </div>
         </div>

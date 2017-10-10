@@ -63,14 +63,6 @@
   margin-right: 0;
 }
 
-@media screen and (min-width: 992px) {
-  .navbar-light .navbar-nav .nav-link {
-    padding-right: 75px;
-  }
-  #nav-left {
-    padding-left: 30px;
-  }
-}
 @media screen and (min-width: 576px) {
   #mobile-nav {
     display: none !important;

@@ -65,7 +65,7 @@ class QuestionForm extends Component {
     return (
       <div id="questions-new" className="main">
         <div className="top-helper container">
-          <div className="page-title headerbackground">ASK A QUESTION</div>
+          <div className="page-title ">ASK A QUESTION</div>
         </div>
         <div className="ask-question-section mx-auto">
           <div className="post-form mb-3">

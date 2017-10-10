@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const NotFound = () => (
   <div className=" mx-auto ">
@@ -6,9 +7,9 @@ const NotFound = () => (
       <h1 className="display-4 ">404. OOPS</h1>
       <p>Sorry, this page does not exist</p>
       <p>Let's go back and try this agian</p>
-      <button type="button" className="btn btn-custom btn-info" href="/">
+      <Link className="btn btn-custom btn-info" to="/">
         Go to theMAMAclub home
-      </button>
+      </Link>
     </div>
   </div>
 );
